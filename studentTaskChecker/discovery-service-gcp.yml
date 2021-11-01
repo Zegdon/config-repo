@@ -1,0 +1,16 @@
+# Eureka config profiles, two peer profiles and a development default profile for testing
+hosts:
+    peer1Host: discovery-service-peer1-dot-studenttaskchecker.appspot.com
+    peer2Host: discovery-service-peer2-dot-studenttaskchecker.appspot.com
+
+eureka:
+    instance:
+        prefer-ip-address: true
+        appname: eureka-cluster
+    client:
+        serviceUrl:
+            defaultZone: http://${hosts.peer1Host}/eureka/,http://${hosts.peer2Host}/eureka/
+        register-with-eureka: true
+        fetch-registry: true
+        healthcheck:
+            enabled: true

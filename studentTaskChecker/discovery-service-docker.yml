@@ -1,0 +1,18 @@
+# Eureka config profiles, two peer profiles and a development default profile for testing
+hosts:
+    peer1Host: discovery-service-peer1 # docker containers can find others on the same network by container name
+    peer2Host: discovery-service-peer2
+
+server:
+    port: 8761
+eureka:
+    instance:
+        prefer-ip-address: false
+        appname: eureka-cluster
+    client:
+        serviceUrl:
+            defaultZone: http://${hosts.peer1Host}:${server.port}/eureka/,http://${hosts.peer2Host}:${server.port}/eureka/
+        register-with-eureka: true
+        fetch-registry: true
+        healthcheck:
+            enabled: true

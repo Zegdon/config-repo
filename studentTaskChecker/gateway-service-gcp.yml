@@ -1,0 +1,49 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-service-peer1-dot-studenttaskchecker.appspot.com/eureka/, http://discovery-service-peer2-dot-studenttaskchecker.appspot.com/eureka/
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+      routes:
+        - id: authentication
+          uri: https://user-service-dot-studenttaskchecker.appspot.com
+          predicates:
+          - Path=/api/user/auth
+        - id: registration
+          uri: https://user-service-dot-studenttaskchecker.appspot.com
+          predicates:
+          - Path=/api/user/registration,/api/user/confirmation**
+        - id: user-service
+          uri: https://user-service-dot-studenttaskchecker.appspot.com
+          predicates:
+          - Path=/api/user/**
+          filters: 
+          - TokenValidatingFilter
+        - id: course-service
+          uri: https://course-service-dot-studenttaskchecker2.appspot.com
+          predicates:
+          - Path=/api/course/**
+          filters: 
+          - TokenValidatingFilter
+        - id: task-service
+          uri: https://task-service-dot-studenttaskchecker2.appspot.com
+          predicates:
+          - Path=/api/task/**
+          filters: 
+          - TokenValidatingFilter
+        - id: feedback-service
+          uri: https://feedback-service-dot-studenttaskchecker2.appspot.com
+          predicates:
+          - Path=/api/feedback/**
+          filters: 
+          - TokenValidatingFilter
+        - id: filemanagement-service
+          uri: https://filemanagement-service-dot-studenttaskchecker.appspot.com
+          predicates:
+          - Path=/api/filemanagement/**
+          filters: 
+          - TokenValidatingFilter
