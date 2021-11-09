@@ -12,39 +12,39 @@ spring:
           enabled: true
       routes:
         - id: authentication
-          uri: lb://user-service
+          uri: http://user-service:8080
           predicates:
           - Path=/api/user/auth
         - id: registration
-          uri: lb://user-service
+          uri: http://user-service:8080
           predicates:
           - Path=/api/user/registration,/api/user/confirmation**
         - id: user-service
-          uri: lb://user-service
+          uri: http://user-service:8080
           predicates:
           - Path=/api/user/**
           filters: 
           - TokenValidatingFilter
         - id: course-service
-          uri: lb://course-service
+          uri: http://course-service:8080
           predicates:
           - Path=/api/course/**
           filters: 
           - TokenValidatingFilter
         - id: task-service
-          uri: lb://task-service
+          uri: http://task-service:8080
           predicates:
           - Path=/api/task/**
           filters: 
           - TokenValidatingFilter
         - id: feedback-service
-          uri: lb://feedback-service
+          uri: http://feedback-service:8080
           predicates:
           - Path=/api/feedback/**
           filters: 
           - TokenValidatingFilter
         - id: filemanagement-service
-          uri: lb://filemanagement-service
+          uri: http://filemanagement-service:8080
           predicates:
           - Path=/api/filemanagement/**
           filters: 
